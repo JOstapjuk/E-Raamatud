@@ -1,53 +1,220 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="E_Raamatud.MainPage">
 
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color= "#549082" Offset="0.0" />
+            <GradientStop Color="#406780" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
     <ScrollView>
-        <VerticalStackLayout Padding="10">
+        <VerticalStackLayout Padding="10" Spacing="20">
 
             <!-- Header -->
             <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
-                <Label Text="Kodu" FontSize="24" FontAttributes="Bold" TextColor="White" />
-                <Image Source="user_icon.png" HeightRequest="24" />
-                <Image Source="heart_icon.png" HeightRequest="24" />
-                <Image Source="cart_icon.png" HeightRequest="24" />
+                <Label Text="Kodu" FontSize="30" FontAttributes="Bold" TextColor="White" FontFamily="TimesNewRoman" />
+                <HorizontalStackLayout Spacing="15" HorizontalOptions="EndAndExpand">
+                    <Image Source="user_icon.png" HeightRequest="24" />
+                    <Image Source="heart_icon.png" HeightRequest="24" />
+                    <Image Source="cart_icon.png" HeightRequest="24" />
+                </HorizontalStackLayout>
             </HorizontalStackLayout>
 
             <!-- Search Bar -->
-            <SearchBar Placeholder="otsi raamatut" BackgroundColor="White" />
+            <SearchBar Placeholder="otsi raamatut" BackgroundColor="White" FontSize="22"
+                       TextColor="Black" PlaceholderColor="#999999" FontFamily="TimesNewRoman" />
 
             <!-- Tabs -->
-            <HorizontalStackLayout Spacing="10" Margin="0,10,0,10">
-                <Button Text="romaan" BackgroundColor="#284D6D" TextColor="White" />
-                <Button Text="fantaasia" BackgroundColor="#284D6D" TextColor="White" />
-                <Button Text="klassika" BackgroundColor="#284D6D" TextColor="White" />
-            </HorizontalStackLayout>
+            <ScrollView Orientation="Horizontal"
+            HeightRequest="40"
+            BackgroundColor="#145459"
+            HorizontalScrollBarVisibility="Never">
+
+                <HorizontalStackLayout Spacing="0"
+                           Padding="0"
+                           Margin="0"
+                           BackgroundColor="#145459"
+                           VerticalOptions="Center">
+
+                    <Button Text="romaan"
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="0"
+                HeightRequest="40"
+                Padding="15,0"
+                Margin="0"
+                />
+
+                    <Button Text="fantaasia"
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="0"
+                HeightRequest="40"
+                Padding="15,0"
+                Margin="0"
+                />
+
+                    <Button Text="klassika"
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="0"
+                HeightRequest="40"
+                Padding="15,0"
+                Margin="0"
+                />
+
+                    <Button Text="ajalugu"
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="0"
+                HeightRequest="40"
+                Padding="15,0"
+                Margin="0"
+                />
+
+                    <Button Text="ulme"
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="0"
+                HeightRequest="40"
+                Padding="15,0"
+                Margin="0"
+                />
+
+                    <Button Text="noorteraamat"
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="0"
+                HeightRequest="40"
+                Padding="15,0"
+                Margin="0"
+                />
+
+                    <Button Text="seiklus"
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="0"
+                HeightRequest="40"
+                Padding="15,0"
+                Margin="0"
+                />
+                </HorizontalStackLayout>
+            </ScrollView>
+
 
             <!-- New Books -->
-            <Label Text="Uudised" FontSize="20" FontAttributes="Bold" />
-            <HorizontalStackLayout Spacing="15">
+            <Label Text="Uudised" FontSize="30" FontAttributes="Bold" TextColor="White" FontFamily="TimesNewRoman"/>
+
+            <Label Text="Uudised"
+       FontSize="30"
+       FontAttributes="Bold"
+       TextColor="White"
+       FontFamily="TimesNewRoman" />
+
+            <Grid ColumnDefinitions="*,*"
+      ColumnSpacing="15"
+      RowSpacing="20">
+
+                <!-- Book 1 -->
                 <VerticalStackLayout>
-                    <Image Source="sipsik.jpg" HeightRequest="120" />
-                    <Label Text="€ 10.99" FontAttributes="Bold"/>
-                    <Label Text="Sipsik" />
-                    <Label Text="Eno Raud" FontSize="12" />
+                    <Frame HasShadow="True"
+               CornerRadius="8"
+               Padding="0"
+               Margin="0"
+               BackgroundColor="Transparent">
+                        <Image Source="sipsik.jpg"
+                   HeightRequest="180"
+                   WidthRequest="120"
+                   Aspect="AspectFill" />
+                    </Frame>
+                    <Label Text="€ 10.99"
+               FontAttributes="Bold"
+               TextColor="Black" />
+                    <Label Text="Sipsik"
+               TextColor="Black" />
+                    <Label Text="Eno Raud"
+               FontSize="12"
+               TextColor="DarkGray" />
                 </VerticalStackLayout>
 
-                <VerticalStackLayout>
-                    <Image Source="hungergames.jpg" HeightRequest="120" />
-                    <Label Text="€ 13.56" FontAttributes="Bold"/>
-                    <Label Text="The Hunger Games" />
-                    <Label Text="Novel series" FontSize="12" />
+                <!-- Book 2 -->
+                <VerticalStackLayout Grid.Column="1">
+                    <Frame HasShadow="True"
+               CornerRadius="8"
+               Padding="0"
+               Margin="0"
+               BackgroundColor="Transparent">
+                        <Image Source="hungergames.jpg"
+                   HeightRequest="180"
+                   WidthRequest="120"
+                   Aspect="AspectFill" />
+                    </Frame>
+                    <Label Text="€ 13.56"
+               FontAttributes="Bold"
+               TextColor="Black" />
+                    <Label Text="The Hunger Games"
+               TextColor="Black" />
+                    <Label Text="Novel series"
+               FontSize="12"
+               TextColor="DarkGray" />
                 </VerticalStackLayout>
-            </HorizontalStackLayout>
+
+            </Grid>
+            
 
             <!-- Bestsellers -->
-            <Label Text="Bestsellerid" FontSize="20" FontAttributes="Bold" Margin="0,20,0,0"/>
-            <HorizontalStackLayout Spacing="15">
-                <Image Source="dune.jpg" HeightRequest="150" WidthRequest="100" />
-                <Image Source="girlwithoutaname.jpg" HeightRequest="150" WidthRequest="100" />
-            </HorizontalStackLayout>
+            <Label Text="Bestsellerid" FontSize="30" FontAttributes="Bold" TextColor="White" FontFamily="TimesNewRoman"/>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" RowSpacing="20">
+
+                <!-- Book 3 (Dune) -->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                    <Frame HasShadow="True"
+              CornerRadius="8"
+              Padding="0"
+              Margin="0"
+              BackgroundColor="Transparent">
+                        <Image Source="dune.jpg"
+                  HeightRequest="180"
+                  WidthRequest="120"
+                  Aspect="AspectFill" />
+                    </Frame>
+                    <Label Text="€ 15.99"
+              FontAttributes="Bold"
+              TextColor="Black" />
+                    <Label Text="Dune"
+              TextColor="Black" />
+                    <Label Text="Frank Herbert"
+              FontSize="12"
+              TextColor="DarkGray" />
+                </VerticalStackLayout>
+
+
+            </Grid>
 
         </VerticalStackLayout>
     </ScrollView>
