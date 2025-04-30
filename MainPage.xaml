@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="E_Raamatud.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="10">
+
+            <!-- Header -->
+            <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
+                <Label Text="Kodu" FontSize="24" FontAttributes="Bold" TextColor="White" />
+                <Image Source="user_icon.png" HeightRequest="24" />
+                <Image Source="heart_icon.png" HeightRequest="24" />
+                <Image Source="cart_icon.png" HeightRequest="24" />
+            </HorizontalStackLayout>
+
+            <!-- Search Bar -->
+            <SearchBar Placeholder="otsi raamatut" BackgroundColor="White" />
+
+            <!-- Tabs -->
+            <HorizontalStackLayout Spacing="10" Margin="0,10,0,10">
+                <Button Text="romaan" BackgroundColor="#284D6D" TextColor="White" />
+                <Button Text="fantaasia" BackgroundColor="#284D6D" TextColor="White" />
+                <Button Text="klassika" BackgroundColor="#284D6D" TextColor="White" />
+            </HorizontalStackLayout>
+
+            <!-- New Books -->
+            <Label Text="Uudised" FontSize="20" FontAttributes="Bold" />
+            <HorizontalStackLayout Spacing="15">
+                <VerticalStackLayout>
+                    <Image Source="sipsik.jpg" HeightRequest="120" />
+                    <Label Text="€ 10.99" FontAttributes="Bold"/>
+                    <Label Text="Sipsik" />
+                    <Label Text="Eno Raud" FontSize="12" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Image Source="hungergames.jpg" HeightRequest="120" />
+                    <Label Text="€ 13.56" FontAttributes="Bold"/>
+                    <Label Text="The Hunger Games" />
+                    <Label Text="Novel series" FontSize="12" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <!-- Bestsellers -->
+            <Label Text="Bestsellerid" FontSize="20" FontAttributes="Bold" Margin="0,20,0,0"/>
+            <HorizontalStackLayout Spacing="15">
+                <Image Source="dune.jpg" HeightRequest="150" WidthRequest="100" />
+                <Image Source="girlwithoutaname.jpg" HeightRequest="150" WidthRequest="100" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
