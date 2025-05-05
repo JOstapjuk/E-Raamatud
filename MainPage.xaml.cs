@@ -1,12 +1,12 @@
-﻿namespace E_Raamatud
+﻿using E_Raamatud.ViewModel;
+
+namespace E_Raamatud;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    public MainPage()
     {
-        public MainPage()
-        {
-            InitializeComponent();
-        }
-
+        InitializeComponent();
+        BindingContext = new BookViewModel();
     }
-
 }
