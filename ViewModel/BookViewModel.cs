@@ -90,6 +90,40 @@ namespace E_Raamatud.ViewModel
             });
             }
 
+            if (await _database.Table<Raamat>().CountAsync() == 0)
+            {
+                await _database.InsertAllAsync(new[]
+                {
+                    new Raamat
+                    {
+                        Raamat_ID = 1,
+                        Pealkiri = "Sipsik",
+                        Kirjeldus = "Laste raamat pehme mänguasjast nimega Sipsik.",
+                        Hind = 5.99m,
+                        Zanr_ID = 3,
+                        Pilt = "sipsik.jpg"
+                    },
+                    new Raamat
+                    {
+                        Raamat_ID = 2,
+                        Pealkiri = "The Hunger Games",
+                        Kirjeldus = "Noorteraamat düstoopilises ühiskonnas peetavatest ellujäämismängudest.",
+                        Hind = 9.99m,
+                        Zanr_ID = 6,
+                        Pilt = "hungergames.jpg"
+                    },
+                    new Raamat
+                    {
+                        Raamat_ID = 3,
+                        Pealkiri = "Dune",
+                        Kirjeldus = "Ulmeromaan kõrbemaailmast ja poliitilisest võitlusest.",
+                        Hind = 12.99m,
+                        Zanr_ID = 5,
+                        Pilt = "dune.jpg"
+                    }
+                });
+            }
+
             var genreList = await _database.Table<Genre>().ToListAsync();
             foreach (var genre in genreList)
             {
