@@ -1,0 +1,35 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:E_Raamatud.ViewModel"
+             x:Class="E_Raamatud.RegisterPage">
+
+    <ContentPage.BindingContext>
+        <viewModel:UserViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20">
+            <Label Text="Registreeri" FontSize="24" HorizontalOptions="Center" />
+
+            <Entry Placeholder="Kasutajanimi"
+                   Text="{Binding Username}" />
+
+            <Entry Placeholder="Parool"
+                   IsPassword="True"
+                   Text="{Binding Password}" />
+
+            <Picker Title="Vali roll"
+                ItemsSource="{Binding Roles}"
+                SelectedItem="{Binding SelectedRole}" />
+
+            <Label Text="{Binding LoginStatus}" TextColor="Red" />
+
+            <Button Text="Registreeru"
+                    Command="{Binding RegisterCommand}" />
+
+            <Button Text="Tagasi"
+                    Clicked="GoBack_Clicked"
+                    BackgroundColor="LightGray" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
