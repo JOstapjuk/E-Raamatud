@@ -18,9 +18,6 @@ public partial class LoginPage : ContentPage
             if (user != null)
             {
                 Application.Current.MainPage = new NavigationPage(new MainPage());
-
-                // OR if you want to replace the login page completely:
-                // Application.Current.MainPage = new NavigationPage(new MainPage());
             }
             else
             {

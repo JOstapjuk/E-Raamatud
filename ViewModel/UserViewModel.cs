@@ -57,7 +57,6 @@ namespace E_Raamatud.ViewModel
 
             SelectedRole = UserRole.Kasutaja;
 
-            // Populate roles here
             Roles = new ObservableCollection<UserRole>(
                 Enum.GetValues(typeof(UserRole))
                 .Cast<UserRole>()
@@ -73,7 +72,6 @@ namespace E_Raamatud.ViewModel
             _database = new SQLiteAsyncConnection(dbPath);
             await _database.CreateTableAsync<User>();
 
-            // Create default admin if not present
             var admin = await _database.Table<User>().FirstOrDefaultAsync(u => u.Role == UserRole.Admin);
             if (admin == null)
             {
@@ -101,12 +99,12 @@ namespace E_Raamatud.ViewModel
 
             if (user != null)
             {
-                LoginStatus = $"Login success as {user.Role}";
+                LoginStatus = $"Sisselogimise edu kui {user.Role}";
                 return user;
             }
             else
             {
-                LoginStatus = "Invalid username or password.";
+                LoginStatus = "Vale kasutajanimi või salasõna";
                 return null;
             }
         }

@@ -57,17 +57,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AndroidResource Remove="NewFolder\**" />
 	  <AndroidResource Remove="Services\**" />
-	  <Compile Remove="NewFolder\**" />
 	  <Compile Remove="Services\**" />
-	  <EmbeddedResource Remove="NewFolder\**" />
 	  <EmbeddedResource Remove="Services\**" />
-	  <MauiCss Remove="NewFolder\**" />
 	  <MauiCss Remove="Services\**" />
-	  <MauiXaml Remove="NewFolder\**" />
 	  <MauiXaml Remove="Services\**" />
-	  <None Remove="NewFolder\**" />
 	  <None Remove="Services\**" />
 	</ItemGroup>
 
@@ -89,13 +83,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="BookDetailPage.xaml">
+	  <MauiXaml Update="View\BookDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="LoginPage.xaml">
+	  <MauiXaml Update="View\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="RegisterPage.xaml">
+	  <MauiXaml Update="View\RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

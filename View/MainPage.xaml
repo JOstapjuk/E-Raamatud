@@ -14,7 +14,6 @@
     <ScrollView>
         <VerticalStackLayout Padding="10" Spacing="20">
 
-            <!-- Header Section -->
             <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
                 <Label Text="Kodu" FontSize="30" FontAttributes="Bold" TextColor="White" FontFamily="TimesNewRoman" />
                 <HorizontalStackLayout Spacing="15" HorizontalOptions="EndAndExpand">
@@ -24,7 +23,6 @@
                 </HorizontalStackLayout>
             </HorizontalStackLayout>
 
-            <!-- Search Bar -->
             <Grid ColumnDefinitions="*, Auto">
                 <Entry Grid.Column="0"
                        Placeholder="otsi raamatut"
@@ -44,7 +42,6 @@
                         Margin="5,0,0,0"/>
             </Grid>
 
-            <!-- Genre Selection -->
             <CollectionView ItemsSource="{Binding Genres}"
                             ItemsLayout="HorizontalList"
                             SelectionMode="Single"
@@ -73,14 +70,12 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Books List Title -->
             <Label Text="Raamatud"
                    FontSize="30"
                    FontAttributes="Bold"
                    TextColor="White"
                    FontFamily="TimesNewRoman" />
 
-            <!-- Books Collection -->
             <CollectionView ItemsSource="{Binding Books}"
                 SelectionMode="Single"
                 SelectionChanged="OnBookSelected">
@@ -92,19 +87,18 @@
                     <DataTemplate>
                         <VerticalStackLayout Padding="5">
                             <Frame HasShadow="True"
-                       CornerRadius="8"
-                       Padding="0"
-                       BackgroundColor="Transparent">
+                                   CornerRadius="8"
+                                   Padding="0"
+                                   BackgroundColor="Transparent">
                                 <Image Source="{Binding Pilt}"
-                           HeightRequest="180"
-                           WidthRequest="120"
-                           Aspect="AspectFill" />
+                                       HeightRequest="180"
+                                       WidthRequest="120"
+                                       Aspect="AspectFill" />
                             </Frame>
                             <Label Text="{Binding Hind, StringFormat='€ {0:F2}'}"
-                       FontAttributes="Bold"
-                       TextColor="Black" />
+                                   FontAttributes="Bold"
+                                   TextColor="Black" />
                             <Label Text="{Binding Pealkiri}" TextColor="Black" />
-                            <Label Text="{Binding Zanr_Nimi}" FontSize="12" TextColor="DarkGray" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
