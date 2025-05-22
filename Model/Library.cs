@@ -7,18 +7,12 @@ using System.Threading.Tasks;
 
 namespace E_Raamatud.Model
 {
-    public class PurchaseBasket
+    public class Library
     {
         [PrimaryKey, AutoIncrement]
-        public int Ostukorv_ID { get; set; }
+        public int Library_ID { get; set; }
 
         public int Kasutaja_ID { get; set; }
-
         public int Raamat_ID { get; set; }
-
-        public int Kogus { get; set; }
-
-        [MaxLength(10)]
-        public decimal Lõppu_hind { get; set; }
     }
 }

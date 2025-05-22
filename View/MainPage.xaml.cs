@@ -1,5 +1,6 @@
 ﻿using E_Raamatud.Model;
 using E_Raamatud.ViewModel;
+using E_Raamatud.View;
 using Microsoft.Maui.Controls;
 using SQLite;
 using System;
@@ -89,14 +90,35 @@ namespace E_Raamatud
                     }
                 }
 
-                int currentUserId = 1;
-                await Navigation.PushAsync(new BookDetailPage(raamat, genreName, currentUserId));
+                await Navigation.PushAsync(new BookDetailPage(raamat, genreName));
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error in OnBookSelected: {ex.Message}");
                 await DisplayAlert("Error", "An error occurred while loading the book details.", "OK");
             }
+        }
+
+        private async void OnCartTapped(object sender, EventArgs e)
+        {
+            if (SessionService.CurrentUser == null)
+            {
+                await DisplayAlert("Login required", "Please log in to access your cart.", "OK");
+                return;
+            }
+
+            await Navigation.PushAsync(new CartPage(SessionService.CurrentUser.Id));
+        }
+
+        private async void OnLibraryTapped(object sender, EventArgs e)
+        {
+            if (SessionService.CurrentUser == null)
+            {
+                await DisplayAlert("Login required", "Please log in to access your library.", "OK");
+                return;
+            }
+
+            await Navigation.PushAsync(new LibraryPage());
         }
     }
 }

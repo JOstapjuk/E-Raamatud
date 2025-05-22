@@ -5,9 +5,13 @@ namespace E_Raamatud;
 
 public partial class BookDetailPage : ContentPage
 {
-    public BookDetailPage(Raamat selectedBook, string zanrNimi, int userId)
+    public BookDetailPage(Raamat selectedBook, string zanrNimi)
     {
         InitializeComponent();
-        BindingContext = new BookDetailViewModel(selectedBook, zanrNimi, userId);
+
+        if (selectedBook == null)
+            throw new ArgumentNullException(nameof(selectedBook));
+
+        BindingContext = new BookDetailViewModel(selectedBook, zanrNimi);
     }
 }

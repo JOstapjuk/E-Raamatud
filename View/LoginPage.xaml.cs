@@ -17,6 +17,8 @@ public partial class LoginPage : ContentPage
 
             if (user != null)
             {
+                SessionService.SetCurrentUser(user);
+
                 Application.Current.MainPage = new NavigationPage(new MainPage());
             }
             else

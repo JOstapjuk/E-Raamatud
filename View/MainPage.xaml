@@ -18,8 +18,17 @@
                 <Label Text="Kodu" FontSize="30" FontAttributes="Bold" TextColor="White" FontFamily="TimesNewRoman" />
                 <HorizontalStackLayout Spacing="15" HorizontalOptions="EndAndExpand">
                     <Image Source="user_icon.png" HeightRequest="24" />
-                    <Image Source="heart_icon.png" HeightRequest="24" />
-                    <Image Source="cart_icon.png" HeightRequest="24" />
+                    <Image Source="heart_icon.png" HeightRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLibraryTapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="cart_icon.png"
+                            HeightRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCartTapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
                 </HorizontalStackLayout>
             </HorizontalStackLayout>
 
