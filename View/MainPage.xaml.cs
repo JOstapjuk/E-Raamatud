@@ -120,5 +120,10 @@ namespace E_Raamatud
 
             await Navigation.PushAsync(new LibraryPage());
         }
+
+        private async void OnUserTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new UserProfilePage());
+        }
     }
 }

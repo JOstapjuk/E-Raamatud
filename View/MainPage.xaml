@@ -17,7 +17,11 @@
             <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
                 <Label Text="Kodu" FontSize="30" FontAttributes="Bold" TextColor="White" FontFamily="TimesNewRoman" />
                 <HorizontalStackLayout Spacing="15" HorizontalOptions="EndAndExpand">
-                    <Image Source="user_icon.png" HeightRequest="24" />
+                    <Image Source="user_icon.png" HeightRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnUserTapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
                     <Image Source="heart_icon.png" HeightRequest="24">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnLibraryTapped" />
