@@ -14,7 +14,7 @@
             <Label Text="Sinu ostude ajalugu"
                    FontSize="28"
                    FontAttributes="Bold"
-                   TextColor="White" />
+                   TextColor="Black" />
             <CollectionView x:Name="PurchaseList" HeightRequest="400">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -45,18 +45,18 @@
                                     <Label Text="{Binding BookTitle}" 
                                            FontSize="18" 
                                            FontAttributes="Bold" 
-                                           TextColor="White"
+                                           TextColor="Black"
                                            LineBreakMode="WordWrap"/>
                                     <Label Text="{Binding Quantity, StringFormat='Kogus: {0}'}" 
                                            FontSize="14"
-                                           TextColor="LightGray"/>
+                                           TextColor="Black"/>
                                     <Label Text="{Binding TotalPrice, StringFormat='Hind kokku: €{0:F2}'}" 
                                            FontSize="16"
                                            FontAttributes="Bold"
                                            TextColor="LightGreen"/>
                                     <Label Text="{Binding FormattedDate, StringFormat='Ostetud: {0}'}" 
                                            FontSize="12"
-                                           TextColor="LightGray"
+                                           TextColor="Black"
                                            FontAttributes="Italic"/>
                                 </VerticalStackLayout>
                             </Grid>
@@ -69,7 +69,7 @@
             <Label x:Name="EmptyLabel"
                    Text="Sul pole veel ühtegi ostu tehtud."
                    FontSize="16"
-                   TextColor="LightGray"
+                   TextColor="Black"
                    HorizontalOptions="Center"
                    IsVisible="False"/>
         </VerticalStackLayout>

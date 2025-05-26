@@ -1,10 +1,10 @@
 ﻿using E_Raamatud.Model;
 using SQLite;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -15,6 +15,7 @@ namespace E_Raamatud.ViewModel
         private SQLiteAsyncConnection _database;
         private Genre _selectedGenre;
         private string _searchText;
+
         public ObservableCollection<Genre> Genres { get; set; }
         public ObservableCollection<BookWithGenre> Books { get; set; }
 
@@ -52,11 +53,8 @@ namespace E_Raamatud.ViewModel
         {
             Genres = new ObservableCollection<Genre>();
             Books = new ObservableCollection<BookWithGenre>();
-            SelectGenreCommand = new Command<Genre>(genre =>
-            {
-                SelectedGenre = genre;
-            });
 
+            SelectGenreCommand = new Command<Genre>(genre => SelectedGenre = genre);
             SearchCommand = new Command<string>(searchTerm =>
             {
                 SearchText = searchTerm;
@@ -74,63 +72,42 @@ namespace E_Raamatud.ViewModel
             await _database.CreateTableAsync<Raamat>();
             await _database.CreateTableAsync<Genre>();
 
+            Genres.Clear();
             Genres.Add(new Genre { Zanr_ID = 0, Nimetus = "Kõik raamatud", Kirjeldus = "Kuva kõik raamatud" });
 
             if (await _database.Table<Genre>().CountAsync() == 0)
-            {
-                await _database.InsertAllAsync(new[]
-                {
-                new Genre { Zanr_ID = 1, Nimetus = "romaan", Kirjeldus = "Romaanid ja ilukirjandus" },
-                new Genre { Zanr_ID = 2, Nimetus = "fantaasia", Kirjeldus = "Fantaasiakirjandus" },
-                new Genre { Zanr_ID = 3, Nimetus = "klassika", Kirjeldus = "Klassikalised teosed" },
-                new Genre { Zanr_ID = 4, Nimetus = "ajalugu", Kirjeldus = "Ajaloolised raamatud" },
-                new Genre { Zanr_ID = 5, Nimetus = "ulme", Kirjeldus = "Ulmekirjandus" },
-                new Genre { Zanr_ID = 6, Nimetus = "noorteraamat", Kirjeldus = "Noortekirjandus" },
-                new Genre { Zanr_ID = 7, Nimetus = "seiklus", Kirjeldus = "Seikluslood" }
-            });
-            }
+                await LoadGenresFromJsonAsync();
 
             if (await _database.Table<Raamat>().CountAsync() == 0)
-            {
-                await _database.InsertAllAsync(new[]
-                {
-                    new Raamat
-                    {
-                        Raamat_ID = 1,
-                        Pealkiri = "Sipsik",
-                        Kirjeldus = "Laste raamat pehme mänguasjast nimega Sipsik.",
-                        Hind = 5.99m,
-                        Zanr_ID = 3,
-                        Pilt = "sipsik.jpg"
-                    },
-                    new Raamat
-                    {
-                        Raamat_ID = 2,
-                        Pealkiri = "The Hunger Games",
-                        Kirjeldus = "Noorteraamat düstoopilises ühiskonnas peetavatest ellujäämismängudest.",
-                        Hind = 9.99m,
-                        Zanr_ID = 6,
-                        Pilt = "hungergames.jpg"
-                    },
-                    new Raamat
-                    {
-                        Raamat_ID = 3,
-                        Pealkiri = "Dune",
-                        Kirjeldus = "Ulmeromaan kõrbemaailmast ja poliitilisest võitlusest.",
-                        Hind = 12.99m,
-                        Zanr_ID = 5,
-                        Pilt = "dune.jpg"
-                    }
-                });
-            }
+                await LoadBooksFromJsonAsync();
 
             var genreList = await _database.Table<Genre>().ToListAsync();
             foreach (var genre in genreList)
-            {
                 Genres.Add(genre);
-            }
 
             await LoadAllBooks();
+        }
+
+        private async Task LoadGenresFromJsonAsync()
+        {
+            using var stream = await FileSystem.OpenAppPackageFileAsync("genres.json");
+            using var reader = new StreamReader(stream);
+            var json = await reader.ReadToEndAsync();
+
+            var genres = JsonSerializer.Deserialize<List<Genre>>(json);
+            if (genres != null)
+                await _database.InsertAllAsync(genres);
+        }
+
+        private async Task LoadBooksFromJsonAsync()
+        {
+            using var stream = await FileSystem.OpenAppPackageFileAsync("books.json");
+            using var reader = new StreamReader(stream);
+            var json = await reader.ReadToEndAsync();
+
+            var books = JsonSerializer.Deserialize<List<Raamat>>(json);
+            if (books != null)
+                await _database.InsertAllAsync(books);
         }
 
         private async Task LoadAllBooks()
@@ -180,10 +157,8 @@ namespace E_Raamatud.ViewModel
                 });
             }
 
-            if (!string.IsNullOrEmpty(SearchText))
-            {
+            if (!string.IsNullOrWhiteSpace(SearchText))
                 SearchBooks(SearchText);
-            }
         }
 
         private async void SearchBooks(string searchTerm)
@@ -194,44 +169,33 @@ namespace E_Raamatud.ViewModel
                 return;
             }
 
-            searchTerm = searchTerm.ToLower();
-
-            var allBooks = new ObservableCollection<BookWithGenre>();
             var genres = await _database.Table<Genre>().ToListAsync();
-
             var booksQuery = _database.Table<Raamat>();
 
             if (SelectedGenre != null && SelectedGenre.Zanr_ID != 0)
-            {
                 booksQuery = booksQuery.Where(b => b.Zanr_ID == SelectedGenre.Zanr_ID);
-            }
 
             var books = await booksQuery.ToListAsync();
 
-            foreach (var b in books)
-            {
-                var genre = genres.FirstOrDefault(g => g.Zanr_ID == b.Zanr_ID);
-                allBooks.Add(new BookWithGenre
+            var filteredBooks = books
+                .Select(b => new BookWithGenre
                 {
                     Raamat_ID = b.Raamat_ID,
                     Pealkiri = b.Pealkiri,
                     Kirjeldus = b.Kirjeldus,
                     Hind = b.Hind,
-                    Zanr_Nimi = genre?.Nimetus ?? "Tundmatu",
+                    Zanr_Nimi = genres.FirstOrDefault(g => g.Zanr_ID == b.Zanr_ID)?.Nimetus ?? "Tundmatu",
                     Pilt = b.Pilt
-                });
-            }
-
-            var filteredBooks = allBooks.Where(b =>
-                b.Pealkiri.ToLower().Contains(searchTerm) ||
-                b.Kirjeldus.ToLower().Contains(searchTerm) ||
-                b.Zanr_Nimi.ToLower().Contains(searchTerm)).ToList();
+                })
+                .Where(b =>
+                    b.Pealkiri.ToLower().Contains(searchTerm.ToLower()) ||
+                    b.Kirjeldus.ToLower().Contains(searchTerm.ToLower()) ||
+                    b.Zanr_Nimi.ToLower().Contains(searchTerm.ToLower()))
+                .ToList();
 
             Books.Clear();
             foreach (var book in filteredBooks)
-            {
                 Books.Add(book);
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
