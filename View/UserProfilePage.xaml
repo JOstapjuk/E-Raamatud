@@ -28,15 +28,11 @@
             </HorizontalStackLayout>
 
             <VerticalStackLayout Spacing="10">
-                <Button Text="Uuendused" BackgroundColor="#9CC5A1" TextColor="Black"/>
-                <Button Text="Raamatud" BackgroundColor="#9CC5A1" TextColor="Black"/>
-                <Button Text="Audioraamatud" BackgroundColor="#9CC5A1" TextColor="Black"/>
-                <Button Text="Konto seaded" BackgroundColor="#9CC5A1" TextColor="Black"/>
-                <Button Text="Ostude haldamine" 
-                        BackgroundColor="#9CC5A1" 
-                        TextColor="Black" 
-                        Clicked="OnPurchaseHistoryClicked"/>
-                <Button Text="Logi välja" BackgroundColor="#406780" TextColor="White"/>
+                <Button Text="Uuendused" BackgroundColor="#9CC5A1" TextColor="Black" Clicked="OnUpdatesClicked"/>
+                <Button Text="Raamatud" BackgroundColor="#9CC5A1" TextColor="Black" Clicked="OnBooksClicked"/>
+                <Button Text="Konto seaded" BackgroundColor="#9CC5A1" TextColor="Black" Clicked="OnAccountSettingsClicked"/>
+                <Button Text="Ostude haldamine" BackgroundColor="#9CC5A1" TextColor="Black" Clicked="OnPurchaseHistoryClicked"/>
+                <Button Text="Logi välja" BackgroundColor="#406780" TextColor="White" Clicked="OnLogoutClicked"/>
             </VerticalStackLayout>
 
         </VerticalStackLayout>

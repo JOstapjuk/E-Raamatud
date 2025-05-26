@@ -37,7 +37,6 @@
                                    WidthRequest="120"
                                    Aspect="AspectFill" />
                             <Label Text="{Binding Pealkiri}" TextColor="Black" FontAttributes="Bold" />
-                            <Label Text="{Binding Hind, StringFormat='€ {0:F2}'}" TextColor="Black" />
                         </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>

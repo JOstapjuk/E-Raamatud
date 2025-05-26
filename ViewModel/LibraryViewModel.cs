@@ -29,13 +29,10 @@ namespace E_Raamatud.ViewModel
         {
             try
             {
-                // Get the current user ID from SessionService
                 int userId = SessionService.CurrentUser?.Id ?? 0;
                 if (userId == 0)
                     return;
 
-                // Load all books that are in the user library
-                // Library table contains entries with UserId and BookId
                 var libraryEntries = await _database.Table<Library>().Where(l => l.Kasutaja_ID == userId).ToListAsync();
                 var allBooks = await _database.Table<Raamat>().ToListAsync();
 
