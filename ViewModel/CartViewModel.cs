@@ -66,8 +66,9 @@ namespace E_Raamatud.ViewModel
                 return;
             }
 
+            // Only load items that are still in cart (not purchased)
             var basketItems = await _database.Table<PurchaseBasket>()
-                                             .Where(p => p.Kasutaja_ID == userId)
+                                             .Where(p => p.Kasutaja_ID == userId && p.Status == "InCart")
                                              .ToListAsync();
 
             var books = await _database.Table<Raamat>().ToListAsync();
@@ -108,8 +109,9 @@ namespace E_Raamatud.ViewModel
                     return;
                 }
 
+                // Get only items that are still in cart
                 var basketItems = await _database.Table<PurchaseBasket>()
-                    .Where(p => p.Kasutaja_ID == userId)
+                    .Where(p => p.Kasutaja_ID == userId && p.Status == "InCart")
                     .ToListAsync();
 
                 if (basketItems.Count == 0)
@@ -129,17 +131,22 @@ namespace E_Raamatud.ViewModel
                     if (exists != null)
                     {
                         skippedDuplicates++;
-                        continue;
+                    }
+                    else
+                    {
+                        var libraryItem = new Library
+                        {
+                            Kasutaja_ID = userId,
+                            Raamat_ID = item.Raamat_ID
+                        };
+
+                        await _database.InsertAsync(libraryItem);
                     }
 
-                    var libraryItem = new Library
-                    {
-                        Kasutaja_ID = userId,
-                        Raamat_ID = item.Raamat_ID
-                    };
-
-                    await _database.InsertAsync(libraryItem);
-                    await _database.DeleteAsync(item);
+                    // Mark item as purchased and set purchase date
+                    item.Status = "Purchased";
+                    item.PurchaseDate = DateTime.Now;
+                    await _database.UpdateAsync(item);
                 }
 
                 string resultMessage = skippedDuplicates == 0
@@ -148,7 +155,7 @@ namespace E_Raamatud.ViewModel
 
                 await Application.Current.MainPage.DisplayAlert("Õnnestus", resultMessage, "OK");
 
-                LoadCartItems();
+                LoadCartItems(); // This will now only load items with Status = "InCart"
             }
             catch (Exception ex)
             {

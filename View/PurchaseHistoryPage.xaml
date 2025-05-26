@@ -3,34 +3,75 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="E_Raamatud.PurchaseHistoryPage"
              Title="Ostude Ajalugu">
-
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#406780" Offset="0.0" />
             <GradientStop Color="#549082" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
-
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
             <Label Text="Sinu ostude ajalugu"
                    FontSize="28"
                    FontAttributes="Bold"
                    TextColor="White" />
-
-            <CollectionView x:Name="PurchaseList" HeightRequest="400" BackgroundColor="#300000FF">
+            <CollectionView x:Name="PurchaseList" HeightRequest="400">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BorderColor="White" BackgroundColor="#FFFFFF30" CornerRadius="10" Padding="10">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding BookTitle}" FontSize="18" FontAttributes="Bold" TextColor="White"/>
-                                <Label Text="{Binding Quantity, StringFormat='Kogus: {0}'}" TextColor="White"/>
-                                <Label Text="{Binding TotalPrice, StringFormat='Hind kokku: €{0:F2}'}" TextColor="White"/>
-                            </VerticalStackLayout>
+                        <Frame BorderColor="White" CornerRadius="10" Padding="15" Margin="0,5">
+                            <Grid ColumnDefinitions="80,*" ColumnSpacing="15">
+                                <!-- Book Image -->
+                                <Frame Grid.Column="0" 
+                                       CornerRadius="8" 
+                                       Padding="0" 
+                                       HeightRequest="100" 
+                                       WidthRequest="70"
+                                       HasShadow="True">
+                                    <Image Source="{Binding BookImage}" 
+                                           Aspect="AspectFill"
+                                           BackgroundColor="LightGray">
+                                        <Image.Triggers>
+                                            <DataTrigger TargetType="Image" 
+                                                       Binding="{Binding BookImage}" 
+                                                       Value="{x:Null}">
+                                                <Setter Property="Source" Value="book_placeholder.png"/>
+                                            </DataTrigger>
+                                        </Image.Triggers>
+                                    </Image>
+                                </Frame>
+
+                                <!-- Book Details -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                                    <Label Text="{Binding BookTitle}" 
+                                           FontSize="18" 
+                                           FontAttributes="Bold" 
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"/>
+                                    <Label Text="{Binding Quantity, StringFormat='Kogus: {0}'}" 
+                                           FontSize="14"
+                                           TextColor="LightGray"/>
+                                    <Label Text="{Binding TotalPrice, StringFormat='Hind kokku: €{0:F2}'}" 
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="LightGreen"/>
+                                    <Label Text="{Binding FormattedDate, StringFormat='Ostetud: {0}'}" 
+                                           FontSize="12"
+                                           TextColor="LightGray"
+                                           FontAttributes="Italic"/>
+                                </VerticalStackLayout>
+                            </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <!-- Empty state message -->
+            <Label x:Name="EmptyLabel"
+                   Text="Sul pole veel ühtegi ostu tehtud."
+                   FontSize="16"
+                   TextColor="LightGray"
+                   HorizontalOptions="Center"
+                   IsVisible="False"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

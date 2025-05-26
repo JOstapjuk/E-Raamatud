@@ -24,19 +24,23 @@ public partial class PurchaseHistoryPage : ContentPage
     {
         if (SessionService.CurrentUser == null)
         {
+            System.Diagnostics.Debug.WriteLine("ERROR: SessionService.CurrentUser is null!");
             await DisplayAlert("Viga", "Kasutaja pole sisse logitud.", "OK");
             return;
         }
 
-        var basketItems = await _db.Table<PurchaseBasket>()
-                           .Where(pb => pb.Kasutaja_ID == SessionService.CurrentUser.Id)
-                           .ToListAsync();
+        System.Diagnostics.Debug.WriteLine($"Current User - ID: {SessionService.CurrentUser.Id}, Username: {SessionService.CurrentUser.Username}");
 
-        System.Diagnostics.Debug.WriteLine($"Basket items found: {basketItems.Count}");
+        // Get only PURCHASED items for purchase history
+        var purchasedItems = await _db.Table<PurchaseBasket>()
+                               .Where(pb => pb.Kasutaja_ID == SessionService.CurrentUser.Id && pb.Status == "Purchased")
+                               .ToListAsync();
+
+        System.Diagnostics.Debug.WriteLine($"Purchased items found for user ID {SessionService.CurrentUser.Id}: {purchasedItems.Count}");
 
         var displayList = new List<PurchaseDisplay>();
 
-        foreach (var basketItem in basketItems)
+        foreach (var basketItem in purchasedItems)
         {
             var book = await _db.Table<Raamat>()
                                 .Where(r => r.Raamat_ID == basketItem.Raamat_ID)
@@ -50,7 +54,9 @@ public partial class PurchaseHistoryPage : ContentPage
                 {
                     BookTitle = book.Pealkiri,
                     Quantity = basketItem.Kogus,
-                    TotalPrice = basketItem.Lõppu_hind
+                    TotalPrice = basketItem.Lõppu_hind,
+                    PurchaseDate = basketItem.PurchaseDate ?? DateTime.Now,
+                    BookImage = book.Pilt
                 });
             }
             else
@@ -59,12 +65,23 @@ public partial class PurchaseHistoryPage : ContentPage
                 {
                     BookTitle = $"Raamat ID {basketItem.Raamat_ID} puudub",
                     Quantity = basketItem.Kogus,
-                    TotalPrice = basketItem.Lõppu_hind
+                    TotalPrice = basketItem.Lõppu_hind,
+                    PurchaseDate = basketItem.PurchaseDate ?? DateTime.Now,
+                    BookImage = null
                 });
             }
         }
 
+        // Sort by purchase date (newest first)
+        displayList = displayList.OrderByDescending(x => x.PurchaseDate).ToList();
+
         PurchaseList.ItemsSource = displayList;
+
+        // Show/hide empty state
+        EmptyLabel.IsVisible = displayList.Count == 0;
+        PurchaseList.IsVisible = displayList.Count > 0;
+
+        System.Diagnostics.Debug.WriteLine($"Display list created with {displayList.Count} items");
     }
 
     public class PurchaseDisplay
@@ -72,5 +89,8 @@ public partial class PurchaseHistoryPage : ContentPage
         public string BookTitle { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
+        public DateTime PurchaseDate { get; set; }
+        public string BookImage { get; set; }
+        public string FormattedDate => PurchaseDate.ToString("dd.MM.yyyy HH:mm");
     }
 }

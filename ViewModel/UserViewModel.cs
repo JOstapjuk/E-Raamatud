@@ -86,7 +86,7 @@ namespace E_Raamatud.ViewModel
             var users = await _database.Table<User>().ToListAsync();
             foreach (var u in users)
             {
-                Console.WriteLine($"{u.Username} - {u.Password} - {u.Role}");
+                Console.WriteLine($"User ID: {u.Id}, Username: {u.Username} - {u.Password} - {u.Role}");
             }
         }
 
@@ -99,7 +99,18 @@ namespace E_Raamatud.ViewModel
 
             if (user != null)
             {
+                // This is the key fix - set the current user in SessionService
+                SessionService.SetCurrentUser(user);
+
                 LoginStatus = $"Sisselogimise edu kui {user.Role}";
+                Console.WriteLine($"Login successful - User ID: {user.Id}, Role: {user.Role}");
+
+                // Call the success callback if it exists
+                if (OnLoginSuccess != null)
+                {
+                    await OnLoginSuccess();
+                }
+
                 return user;
             }
             else

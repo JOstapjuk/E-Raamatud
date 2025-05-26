@@ -20,5 +20,8 @@ namespace E_Raamatud.Model
 
         [MaxLength(10)]
         public decimal Lõppu_hind { get; set; }
+
+        public string Status { get; set; } = "InCart";
+        public DateTime? PurchaseDate { get; set; }
     }
 }
