@@ -24,5 +24,6 @@ namespace E_Raamatud.Model
         public int Zanr_ID { get; set; }
 
         public string Pilt { get; set; }
+        public string Tekstifail { get; set; }
     }
 }

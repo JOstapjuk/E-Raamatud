@@ -89,6 +89,9 @@
 	  <MauiXaml Update="View\BookDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\BookReaderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\CartPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

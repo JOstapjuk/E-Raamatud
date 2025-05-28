@@ -19,7 +19,8 @@
                TextColor="White"
                HorizontalOptions="Center" />
 
-        <CollectionView ItemsSource="{Binding LibraryBooks}">
+        <CollectionView x:Name="LibraryCollectionView"
+                ItemsSource="{Binding LibraryBooks}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="2" />
             </CollectionView.ItemsLayout>
@@ -31,12 +32,17 @@
                            Padding="0"
                            BackgroundColor="Transparent"
                            Margin="5">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnItemTapped" NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
                         <VerticalStackLayout Padding="5">
                             <Image Source="{Binding Pilt}"
                                    HeightRequest="180"
                                    WidthRequest="120"
                                    Aspect="AspectFill" />
-                            <Label Text="{Binding Pealkiri}" TextColor="Black" FontAttributes="Bold" />
+                            <Label Text="{Binding Pealkiri}"
+                                   TextColor="Black"
+                                   FontAttributes="Bold" />
                         </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>
