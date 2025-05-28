@@ -1,4 +1,7 @@
+using E_Raamatud.Model;
+using E_Raamatud.View;
 using E_Raamatud.ViewModel;
+using E_Raamatud.Views;
 
 namespace E_Raamatud;
 
@@ -19,7 +22,18 @@ public partial class LoginPage : ContentPage
             {
                 SessionService.SetCurrentUser(user);
 
-                Application.Current.MainPage = new NavigationPage(new MainPage());
+                if (user.Role == UserRole.Avaldaja)
+                {
+                    Application.Current.MainPage = new NavigationPage(new AvaldajaPage());
+                }
+                else if (user.Role == UserRole.Kasutaja)
+                {
+                    Application.Current.MainPage = new NavigationPage(new MainPage());
+                }
+                else
+                {
+                    Application.Current.MainPage = new NavigationPage(new AdminPage());
+                }
             }
             else
             {

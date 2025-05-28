@@ -66,16 +66,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="ViewModel\AdminViewModel.xaml.cs" />
 	  <Compile Remove="ViewModel\GenreViewModel.cs" />
 	  <Compile Remove="ViewModel\RaamatWithGenre.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\Book.db" />
+	  <MauiAsset Remove="Resources\Raw\indiana_jones.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="ViewModel\AdminViewModel.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="Resources\Raw\Book.db" />
+	  <None Remove="Resources\Raw\indiana_jones.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -99,6 +106,18 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="View\AccountSettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AddBookPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AdminPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AvaldajaPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AvaldajaReportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\BookDetailPage.xaml">

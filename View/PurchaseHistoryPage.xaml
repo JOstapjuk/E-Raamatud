@@ -20,7 +20,6 @@
                     <DataTemplate>
                         <Frame BorderColor="White" CornerRadius="10" Padding="15" Margin="0,5">
                             <Grid ColumnDefinitions="80,*" ColumnSpacing="15">
-                                <!-- Book Image -->
                                 <Frame Grid.Column="0" 
                                        CornerRadius="8" 
                                        Padding="0" 
@@ -40,7 +39,6 @@
                                     </Image>
                                 </Frame>
 
-                                <!-- Book Details -->
                                 <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
                                     <Label Text="{Binding BookTitle}" 
                                            FontSize="18" 
@@ -65,7 +63,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Empty state message -->
             <Label x:Name="EmptyLabel"
                    Text="Sul pole veel ühtegi ostu tehtud."
                    FontSize="16"

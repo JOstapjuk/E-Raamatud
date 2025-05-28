@@ -20,14 +20,25 @@ namespace E_Raamatud.View
             var frame = sender as Frame;
             var raamat = frame?.BindingContext as Raamat;
 
-            if (raamat == null)
+            if (raamat == null || string.IsNullOrWhiteSpace(raamat.Tekstifail))
                 return;
 
             try
             {
-                using var stream = await FileSystem.OpenAppPackageFileAsync(raamat.Tekstifail);
-                using var reader = new StreamReader(stream);
-                string content = await reader.ReadToEndAsync();
+                string content;
+
+                if (Path.IsPathRooted(raamat.Tekstifail) && File.Exists(raamat.Tekstifail))
+                {
+                    // File saved in local storage (runtime)
+                    content = await File.ReadAllTextAsync(raamat.Tekstifail);
+                }
+                else
+                {
+                    // File embedded in Resources/Raw (build-time)
+                    using var stream = await FileSystem.OpenAppPackageFileAsync(raamat.Tekstifail);
+                    using var reader = new StreamReader(stream);
+                    content = await reader.ReadToEndAsync();
+                }
 
                 await Navigation.PushAsync(new BookReaderPage(raamat.Pealkiri, content));
             }

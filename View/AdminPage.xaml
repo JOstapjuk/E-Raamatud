@@ -1,0 +1,117 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:E_Raamatud.ViewModel"
+             x:Class="E_Raamatud.View.AdminPage"
+             Title="Admin Page">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#549082" Offset="0.0" />
+            <GradientStop Color="#406780" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="20">
+
+            <Button Text="Logi välja"
+                    TextColor="Red"
+                    FontAttributes="Bold"
+                    FontFamily="TimesNewRoman"
+                    Command="{Binding LogoutCommand}"
+                    HorizontalOptions="End" />
+
+            <Label Text="Kasutajad" FontAttributes="Bold" FontSize="24" TextColor="White" FontFamily="TimesNewRoman"/>
+            <CollectionView ItemsSource="{Binding Users}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White" CornerRadius="10" Padding="10" Margin="5">
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding Username}" VerticalOptions="Center" FontFamily="TimesNewRoman"/>
+                                <Button Text="Kustuta"
+                                        TextColor="Red"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminViewModel}}, Path=DeleteUserCommand}"
+                                        CommandParameter="{Binding Id}" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Žanrid" FontAttributes="Bold" FontSize="24" TextColor="White" FontFamily="TimesNewRoman"/>
+            <CollectionView ItemsSource="{Binding Genres}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White" CornerRadius="10" Padding="10" Margin="5">
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding Nimetus}" VerticalOptions="Center" FontFamily="TimesNewRoman"/>
+                                <Button Text="Kustuta"
+                                        TextColor="Red"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminViewModel}}, Path=DeleteGenreCommand}"
+                                        CommandParameter="{Binding Zanr_ID}" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Raamatud" FontAttributes="Bold" FontSize="24" TextColor="White" FontFamily="TimesNewRoman"/>
+            <CollectionView ItemsSource="{Binding Books}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White" CornerRadius="10" Padding="10" Margin="5">
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding Pealkiri}" VerticalOptions="Center" FontFamily="TimesNewRoman"/>
+                                <Button Text="Kustuta"
+                                        TextColor="Red"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminViewModel}}, Path=DeleteBookCommand}"
+                                        CommandParameter="{Binding Raamat_ID}" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Raamatukogu" FontAttributes="Bold" FontSize="24" TextColor="White" FontFamily="TimesNewRoman"/>
+            <CollectionView ItemsSource="{Binding LibraryEntries}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White" CornerRadius="10" Padding="10" Margin="5">
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding Kasutaja_ID, StringFormat='Kasutaja_ID: {0}'}"
+                                       VerticalOptions="Center" FontFamily="TimesNewRoman" />
+                                <Label Text="{Binding Raamat_ID, StringFormat='Raamat_ID: {0}'}"
+                                       VerticalOptions="Center" FontFamily="TimesNewRoman" />
+                                <Button Text="Kustuta"
+                                        TextColor="Red"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminViewModel}}, Path=DeleteLibraryEntryCommand}"
+                                        CommandParameter="{Binding Library_ID}" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Ostukorv" FontAttributes="Bold" FontSize="24" TextColor="White" FontFamily="TimesNewRoman"/>
+            <CollectionView ItemsSource="{Binding PurchaseBasketEntries}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White" CornerRadius="10" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Kasutaja_ID, StringFormat='Kasutaja_ID: {0}'}" FontFamily="TimesNewRoman"/>
+                                <Label Text="{Binding Raamat_ID, StringFormat='Raamat_ID: {0}'}" FontFamily="TimesNewRoman"/>
+                                <Label Text="{Binding Kogus, StringFormat='Kogus: {0}'}" FontFamily="TimesNewRoman"/>
+                                <Label Text="{Binding Lõppu_hind, StringFormat='Hind: €{0:F2}'}" FontFamily="TimesNewRoman"/>
+                                <Button Text="Kustuta"
+                                        TextColor="Red"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminViewModel}}, Path=DeletePurchaseBasketEntryCommand}"
+                                        CommandParameter="{Binding Ostukorv_ID}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

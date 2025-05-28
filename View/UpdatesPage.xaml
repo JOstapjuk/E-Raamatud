@@ -27,6 +27,8 @@
                     <Label Text="✅ Kasutaja profiili leht lisatud koos nuppudega (Raamatud, Audioraamatud, jne)" FontSize="16" TextColor="Black"/>
                     <Label Text="✅ Logi välja puhastab sessiooni ja suunab tagasi sisselogimise lehele" FontSize="16" TextColor="Black"/>
                     <Label Text="✅ Taustastiil ja kujundus ühtlustatud lehtedel" FontSize="16" TextColor="Black"/>
+                    <Label Text="✅ Admin-lehel kohene andmete eemaldamine ObservableCollection abil (ei vaja uuesti käivitamist)" FontSize="16" TextColor="Black"/>
+                    <Label Text="✅ Kustutamiskäsud optimeeritud: eemaldamine toimib koheselt ja korrektselt" FontSize="16" TextColor="Black"/>
                 </VerticalStackLayout>
             </Frame>
 

@@ -52,14 +52,5 @@
     "Zanr_ID": 4,
     "Pilt": "lotr_fellowship.jpg",
     "Tekstifail": "lotr_fellowship.txt"
-  },
-  {
-    "Raamat_ID": 7,
-    "Pealkiri": "Indiana Jones ja Kadunud Laeka Otsing",
-    "Kirjeldus": "Põnevusrohke seiklusarheoloogia filmiraamatu adaptsioon, täis ohtlikke aardejahte.",
-    "Hind": 9.99,
-    "Zanr_ID": 7,
-    "Pilt": "indiana_jones.jpg",
-    "Tekstifail": "indiana_jones.txt"
   }
 ]
