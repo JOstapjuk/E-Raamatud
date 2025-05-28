@@ -25,16 +25,15 @@ namespace E_Raamatud.View
 
             try
             {
-                string path = Path.Combine(FileSystem.AppDataDirectory, "Resources", "Raw", raamat.Tekstifail);
+                using var stream = await FileSystem.OpenAppPackageFileAsync(raamat.Tekstifail);
+                using var reader = new StreamReader(stream);
+                string content = await reader.ReadToEndAsync();
 
-                if (!File.Exists(path))
-                {
-                    await DisplayAlert("Viga", "Raamatu tekstifaili ei leitud.", "OK");
-                    return;
-                }
-
-                string content = await File.ReadAllTextAsync(path);
                 await Navigation.PushAsync(new BookReaderPage(raamat.Pealkiri, content));
+            }
+            catch (FileNotFoundException)
+            {
+                await DisplayAlert("Viga", "Raamatu tekstifaili ei leitud.", "OK");
             }
             catch (Exception ex)
             {
