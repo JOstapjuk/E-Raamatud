@@ -99,17 +99,18 @@ namespace E_Raamatud.ViewModel
 
             if (user != null)
             {
-                // This is the key fix - set the current user in SessionService
-                SessionService.SetCurrentUser(user);
+                if (user.Role == UserRole.Avaldaja && !user.IsApproved)
+                {
+                    LoginStatus = "Sinu konto ootab administraatori kinnitust.";
+                    return null;
+                }
 
+                SessionService.SetCurrentUser(user);
                 LoginStatus = $"Sisselogimise edu kui {user.Role}";
                 Console.WriteLine($"Login successful - User ID: {user.Id}, Role: {user.Role}");
 
-                // Call the success callback if it exists
                 if (OnLoginSuccess != null)
-                {
                     await OnLoginSuccess();
-                }
 
                 return user;
             }
@@ -119,6 +120,7 @@ namespace E_Raamatud.ViewModel
                 return null;
             }
         }
+
 
         private async Task RegisterAsync()
         {
@@ -143,11 +145,15 @@ namespace E_Raamatud.ViewModel
             {
                 Username = Username,
                 Password = Password,
-                Role = SelectedRole
+                Role = SelectedRole,
+                IsApproved = SelectedRole != UserRole.Avaldaja
             };
 
             await _database.InsertAsync(user);
-            LoginStatus = "Registreerimine õnnestus!";
+
+            LoginStatus = SelectedRole == UserRole.Avaldaja
+                ? "Avaldaja konto ootab kinnitamist."
+                : "Registreerimine õnnestus!";
         }
 
         private void OnPropertyChanged(string propertyName) =>

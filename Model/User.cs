@@ -24,5 +24,7 @@ namespace E_Raamatud.Model
         public string Password { get; set; } = string.Empty; 
         [NotNull]
         public UserRole Role { get; set; }
+
+        public bool IsApproved { get; set; } = true;
     }
 }
